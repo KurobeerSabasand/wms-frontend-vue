@@ -12,4 +12,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined, //分割を無効化して単一バンドル化
+      },
+    },
+  },
 })
