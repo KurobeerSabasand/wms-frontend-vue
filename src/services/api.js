@@ -105,7 +105,7 @@ export async function getShipmentsList({ shipment_id = '', status = '' } = {}) {
 }
 
 // 出荷指示詳細取得（第二画面）
-export async function getShipmentsLines(shipment_id) {
+export async function getShipmentLines(shipment_id) {
   const res = await authFetch(`${API_BASE}/api/shipments/${shipment_id}/lines`)
   return await res.json()
 }
