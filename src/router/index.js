@@ -1,12 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
-import ProductListView from '../views/ProductListView.vue'
-import AddProductView from '../views/AddProductView.vue'
-import MenuView from '../views/MenuView.vue'
-import ShipmentsListView from '../views/ShipmentsListView.vue'
-import ShipmentDetailView from '../views/ShipmentDetailView.vue'
-import JsonImportView from '../views/JsonImportView.vue'
-import CsvImportView from '../views/CsvImportView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -18,46 +10,47 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView,
+      component: () => import('../views/LoginView.vue'),
     },
     {
       path: '/menu',
       name: 'menu',
-      component: MenuView,
+      component: () => import('../views/MenuView.vue'),
     },
     {
       path: '/products',
       name: 'products',
-      component: ProductListView,
+      component: () => import('../views/ProductListView.vue'),
     },
     {
       path: '/add',
       name: 'add',
-      component: AddProductView,
+      component: () => import('../views/AddProductView.vue'),
     },
     {
       path: '/shipments',
       name: 'shipments',
-      component: ShipmentsListView,
+      component: () => import('../views/ShipmentsListView.vue'),
     },
     {
       path: '/shipments/:shipment_id',
       name: 'shipment-detail',
-      component: ShipmentDetailView,
+      component: () => import('../views/ShipmentDetailView.vue'),
       props: true,
     },
     {
       path: '/shipments/import-json',
       name: 'import-json',
-      component: JsonImportView,
+      component: () => import('../views/JsonImportView.vue'),
     },
     {
       path: '/shipments/import-csv',
       name: 'import-csv',
-      component: CsvImportView,
+      component: () => import('../views/CsvImportView.vue'),
     },
   ],
 })
+
 // ログインガード
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
@@ -67,4 +60,5 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
 export default router
