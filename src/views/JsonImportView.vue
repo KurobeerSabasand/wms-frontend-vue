@@ -18,7 +18,7 @@
 <script setup>
 import { ref } from 'vue'
 import { importJson } from '../services/api.js'
-const jsontext = ref('')
+const jsonText = ref('')
 const message = ref('')
 async function handleImportJson() {
   try {
