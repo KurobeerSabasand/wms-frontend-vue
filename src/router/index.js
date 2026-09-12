@@ -3,6 +3,10 @@ import LoginView from '../views/LoginView.vue'
 import ProductListView from '../views/ProductListView.vue'
 import AddProductView from '../views/AddProductView.vue'
 import MenuView from '../views/MenuView.vue'
+import ShipmentsListView from '../views/ShipmentsListView.vue'
+import ShipmentDetailView from '../views/ShipmentDetailView.vue'
+import JsonImportView from '../views/JsonImportView.vue'
+import CsvImportView from '../views/CsvImportView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
