@@ -48,7 +48,8 @@ async function fetchShipments() {
 }
 
 function goDetail(shipmentId) {
-  window.location.href = `shipment-detail.html?shipment_id=${shipmentId}`
+  // Vue Router 経由で遷移
+  window.location.hash = `#/shipments/${shipmentId}`
 }
 
 async function handleComplete() {
