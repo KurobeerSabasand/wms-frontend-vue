@@ -9,7 +9,7 @@
       class="json-input"
     ></textarea>
     <!--ボタン-->
-    <button @click="handleImportJSON">取り込み実行</button>
+    <button @click="handleImportJson">取り込み実行</button>
     <!--結果表示-->
     <p v-if="message">{{ message }}</p>
   </div>
