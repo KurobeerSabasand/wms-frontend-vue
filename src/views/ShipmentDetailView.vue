@@ -34,10 +34,17 @@
 import { ref, onMounted } from 'vue'
 import { getShipmentLines } from '../services/api.js'
 import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const lines = ref([])
 const shipmentId = ref('')
+
 const router = useRouter()
+console.log("router history mode =", router.options.history)
+
+const route = useRoute()
+console.log("route.fullPath =", route.fullPath)
+console.log("route.params =", route.params)
 
 function goBack() {
   router.push('/shipments')
@@ -51,6 +58,7 @@ async function fetchLines() {
 }
 
 onMounted(() => {
+  console.log("onMounted fired")
   fetchLines()
 })
 </script>
