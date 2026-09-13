@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <h1>出荷指示詳細（第二画面）</h1>
-    <p>shipment_id:{{ shipmentId }}</p>
+
+    <p>shipment_id: {{ shipmentId }}</p>
+
     <table class="lines-table">
       <thead>
         <tr>
@@ -26,41 +28,34 @@
         </tr>
       </tbody>
     </table>
+
     <button @click="goBack">一覧に戻る</button>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { getShipmentLines } from '../services/api.js'
-import { useRouter } from 'vue-router'
-import { useRoute } from 'vue-router'
-
-const lines = ref([])
-const shipmentId = ref('')
-
-const router = useRouter()
-console.log("router history mode =", router.options.history)
 
 const route = useRoute()
-console.log("route.fullPath =", route.fullPath)
-console.log("route.params =", route.params)
+const router = useRouter()
+
+// ★ これが shipmentId の正しい取り方（ref は不要）
+const shipmentId = route.params.shipment_id
+
+const lines = ref([])
+
+onMounted(async () => {
+  console.log("shipmentId =", shipmentId)  // ← 必ず値が出る（SHP1002）
+  const res = await getShipmentLines(shipmentId)
+  console.log("API response =", res)
+  lines.value = res
+})
 
 function goBack() {
   router.push('/shipments')
 }
-
-async function fetchLines() {
-  const params = new URLSearchParams(window.location.search)
-  shipmentId.value = params.get('shipment_id')
-
-  lines.value = await getShipmentLines(shipmentId.value)
-}
-
-onMounted(() => {
-  console.log("onMounted fired")
-  fetchLines()
-})
 </script>
 
 <style scoped>
