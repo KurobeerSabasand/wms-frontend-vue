@@ -33,12 +33,14 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { getShipmentLines } from '../services/api.js'
+import { useRouter } from 'vue-router'
 
 const lines = ref([])
 const shipmentId = ref('')
+const router = useRouter()
 
 function goBack() {
-  window.location.href = 'shipments-list.html'
+  router.push('/shipments')
 }
 
 async function fetchLines() {
