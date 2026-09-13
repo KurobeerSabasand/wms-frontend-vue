@@ -39,9 +39,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { getShipmentsList, completeShipments, deleteShipments } from '../services/api.js'
+import { useRouter } from 'vue-router'
 
 const shipments = ref([])
 const selectedIds = ref([])
+const router = useRouter()
 
 async function fetchShipments() {
   shipments.value = await getShipmentsList()
@@ -49,7 +51,8 @@ async function fetchShipments() {
 
 function goDetail(shipmentId) {
   // Vue Router 経由で遷移
-  window.location.hash = `#/shipments/${shipmentId}`
+  // window.location.hash = `#/shipments/${shipmentId}`
+  router.push(`/shipments/${shipmentId}`)
 }
 
 async function handleComplete() {
@@ -75,11 +78,6 @@ async function handleDelete() {
 onMounted(() => {
   fetchShipments()
 })
-
-console.log("route.params =", route.params)
-console.log("shipmentId =", shipmentId)
-const lines = await getShipmentLines(shipmentId)
-console.log("API response =", lines)
 
 </script>
 
