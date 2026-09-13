@@ -36,7 +36,7 @@ const router = createRouter({
       path: '/shipments/:shipment_id',
       name: 'shipment-detail',
       component: () => import('../views/ShipmentDetailView.vue'),
-      props: true,
+      // props: true,
     },
     {
       path: '/shipments/import-json',

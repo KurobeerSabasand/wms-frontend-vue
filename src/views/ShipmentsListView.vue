@@ -78,7 +78,6 @@ async function handleDelete() {
 onMounted(() => {
   fetchShipments()
 })
-
 </script>
 
 <style scoped>
