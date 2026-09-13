@@ -75,6 +75,12 @@ async function handleDelete() {
 onMounted(() => {
   fetchShipments()
 })
+
+console.log("route.params =", route.params)
+console.log("shipmentId =", shipmentId)
+const lines = await getShipmentLines(shipmentId)
+console.log("API response =", lines)
+
 </script>
 
 <style scoped>
