@@ -1,23 +1,26 @@
 <template>
   <div>
-    <h1>商品一覧</h1>
+    <h1>ロット在庫一覧</h1>
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>商品名</th>
+          <th>商品コード</th>
           <th>在庫数</th>
+          <th>引当可能数</th>
+          <th>ロット日付</th>
+          <th>更新日時</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="p in products" :key="p.id">
-          <td>{{ p.id }}</td>
-          <td>{{ p.name }}</td>
-          <td>{{ p.stock }}</td>
+        <tr v-for="lot in products" :key="lot.product_code + '-' + lot.stocked_at">
+          <td>{{ lot.product_code }}</td>
+          <td>{{ lot.stock }}</td>
+          <td>{{ lot.allocatabloe_stock }}</td>
+          <td>{{ formatDate(lot.stocked_at) }}</td>
+          <td>{{ formatDate(lot.updated_at) }}</td>
           <td>
-            <button @click="increase(p)">+</button>
-            <button @click="decrease(p)">-</button>
+            <button @click="deleteLot(lot)">削除</button>
           </td>
         </tr>
       </tbody>
@@ -27,7 +30,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getProducts, updateStock } from '../services/api.js'
+import { getProducts, deleteLot } from '../services/api.js'
 
 const products = ref([])
 
@@ -35,13 +38,29 @@ onMounted(async () => {
   products.value = await getProducts()
 })
 
-async function increase(p) {
-  const result = await updateStock(p.id, +1)
-  p.stock = result.product.stock
+function formatDate(dt) {
+  return new Date(dt).toLocaleString()
 }
 
-async function decrease(p) {
-  const result = await updateStock(p.id, -1)
-  p.stock = result.product.stock
+async function deleteLot(lot) {
+  const result = await deleteLot(lot.product_code, lot.stocked_at)
+  alert(result.message)
+  products.value = await getProducts()
 }
 </script>
+
+<style scoped>
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.lot-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.lot-table th,
+.lot-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+</style>

@@ -41,14 +41,13 @@ export async function authFetch(url, options = {}) {
   return res
 }
 
-export async function getProducts() {
-  const res = await authFetch(`${API_BASE}/api/products`)
-  const data = await res.json()
-  return data
+export async function getMasterProducts() {
+  const res = await authFetch(`${API_BASE}/api/master-products`)
+  return await res.json()
 }
 
-export async function addProduct(product) {
-  const res = await authFetch(`${API_BASE}/api/products`, {
+export async function addMasterProduct(product) {
+  const res = await authFetch(`${API_BASE}/api/master-products`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product),
@@ -56,16 +55,26 @@ export async function addProduct(product) {
   return await res.json()
 }
 
-export async function getProductById(id) {
-  const res = await authFetch(`${API_BASE}/api/products/${id}`)
+export async function getProducts() {
+  const res = await authFetch(`${API_BASE}/api/products`)
+  const data = await res.json()
+  return data
+}
+
+export async function addLot(product_code, stock, stocked_at = null) {
+  const res = await authFetch(`${API_BASE}/api/products/add-lot`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ product_code, stock, stocked_at }),
+  })
   return await res.json()
 }
 
-export async function updateStock(id, amount) {
-  const res = await authFetch(`${API_BASE}/api/products/${id}/stock`, {
-    method: 'PUT',
+export async function deleteLot(product_code, stocked_at) {
+  const res = await authFetch(`${API_BASE}/api/products/lot`, {
+    method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount }),
+    body: JSON.stringify({ product_code, stocked_at }),
   })
   return await res.json()
 }
@@ -107,6 +116,31 @@ export async function getShipmentsList({ shipment_id = '', status = '' } = {}) {
 // 出荷指示詳細取得（第二画面）
 export async function getShipmentLines(shipment_id) {
   const res = await authFetch(`${API_BASE}/api/shipments/${shipment_id}/lines`)
+  return await res.json()
+}
+
+export async function startWork(shipmentId) {
+  const res = await authFetch(`${API_BASE}/api/shipments/start-work`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ shipment_id: shipmentId }),
+  })
+  return await res.json()
+}
+
+// 再引当 API
+export async function allocateShipment(shipmentId) {
+  const res = await authFetch(`${API_BASE}/api/shipments/allocate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ shipment_id: shipmentId }),
+  })
+  return await res.json()
+}
+
+// ピックリスト API
+export async function getPickList(shipmentId) {
+  const res = await authFetch(`${API_BASE}/api/shipments/${shipmentId}/picklist`)
   return await res.json()
 }
 

@@ -16,6 +16,9 @@
           <th>total_lines</th>
           <th>total_quantity</th>
           <th>updated_at</th>
+          <th>引当</th>
+          <th>作業中</th>
+          <th>ピックリスト</th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +33,21 @@
           <td>{{ s.total_lines }}</td>
           <td>{{ s.total_quantity }}</td>
           <td>{{ s.updated_at }}</td>
+          <td>
+            <button v-if="s.status === 'unallocated'" @click="handleAllocate(s.shipment_id)">
+              引当する
+            </button>
+          </td>
+          <td>
+            <button v-if="s.status === 'allocated'" @click="handleStartWork(s.shipment_id)">
+              作業中にする
+            </button>
+          </td>
+          <td>
+            <button v-if="s.status === 'working'" @click="goPickList(s.shipment_id)">
+              ピックリストを見る
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -38,7 +56,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getShipmentsList, completeShipments, deleteShipments } from '../services/api.js'
+import { getShipmentsList, completeShipments, deleteShipments, startWork } from '../services/api.js'
 import { useRouter } from 'vue-router'
 
 const shipments = ref([])
@@ -53,6 +71,22 @@ function goDetail(shipmentId) {
   // Vue Router 経由で遷移
   // window.location.hash = `#/shipments/${shipmentId}`
   router.push(`/shipments/${shipmentId}`)
+}
+
+function goPickList(shipmentId) {
+  router.push(`/shipments/${shipmentId}/picklist`)
+}
+
+async function handleAllocate(shipmentId) {
+  const result = await allocateShipment(shipmentId)
+  alert(result.message)
+  fetchShipments()
+}
+
+async function handleStartWork(shipmentId) {
+  const result = await startWork(shipmentId)
+  alert(result.message)
+  fetchShipments()
 }
 
 async function handleComplete() {
