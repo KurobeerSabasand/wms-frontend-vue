@@ -119,8 +119,9 @@ export async function getShipmentLines(shipment_id) {
   return await res.json()
 }
 
-export async function startWork(shipmentId) {
-  const res = await authFetch(`${API_BASE}/api/shipments/start-work`, {
+// 再引当 API
+export async function allocateShipment(shipmentId) {
+  const res = await authFetch(`${API_BASE}/api/shipments/allocate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ shipment_id: shipmentId }),
@@ -128,9 +129,8 @@ export async function startWork(shipmentId) {
   return await res.json()
 }
 
-// 再引当 API
-export async function allocateShipment(shipmentId) {
-  const res = await authFetch(`${API_BASE}/api/shipments/allocate`, {
+export async function startWork(shipmentId) {
+  const res = await authFetch(`${API_BASE}/api/shipments/start-work`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ shipment_id: shipmentId }),
