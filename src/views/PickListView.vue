@@ -31,14 +31,14 @@ import { getPickList } from '../services/api.js'
 
 const route = useRoute()
 const router = useRouter()
-const shipmentId = route.params.shipment_line_id
+const shipmentId = route.params.shipment_id
 const picklist = ref([])
 
 onMounted(async () => {
   picklist.value = await getPickList(shipmentId)
 })
 
-function foBack() {
+function goBack() {
   router.push('/shipments')
 }
 
