@@ -58,6 +58,11 @@ const router = createRouter({
       name: 'import-csv',
       component: () => import('../views/CsvImportView.vue'),
     },
+    {
+      path: '/shipments/:shipment_id/picklist',
+      name: 'picklist',
+      component: () => import('../views/PickListView.vue'),
+    },
   ],
 })
 
