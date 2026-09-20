@@ -56,7 +56,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getShipmentsList, completeShipments, deleteShipments, startWork } from '../services/api.js'
+import {
+  getShipmentsList,
+  completeShipments,
+  deleteShipments,
+  startWork,
+  allocateShipment,
+} from '../services/api.js'
 import { useRouter } from 'vue-router'
 
 const shipments = ref([])
