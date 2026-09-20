@@ -4,8 +4,8 @@
     <!--商品マスタ管理-->
     <section>
       <h2>商品マスタ管理</h2>
-      <button @click="router.push('/master-products')">商品マスタ登録</button>
-      <button @click="router.push('/master-products/list')">商品マスタ一覧</button>
+      <button @click="$router.push('/master-products')">商品マスタ登録</button>
+      <button @click="$router.push('/master-products/list')">商品マスタ一覧</button>
     </section>
     <!--在庫（ロット）管理-->
     <section>
