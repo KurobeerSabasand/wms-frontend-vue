@@ -16,7 +16,7 @@
         <tr v-for="lot in products" :key="lot.product_code + '-' + lot.stocked_at">
           <td>{{ lot.product_code }}</td>
           <td>{{ lot.stock }}</td>
-          <td>{{ lot.allocatabloe_stock }}</td>
+          <td>{{ lot.allocatable_stock }}</td>
           <td>{{ formatDate(lot.stocked_at) }}</td>
           <td>{{ formatDate(lot.updated_at) }}</td>
           <td>
