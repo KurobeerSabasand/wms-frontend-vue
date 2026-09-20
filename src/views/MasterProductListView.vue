@@ -32,7 +32,7 @@ onMounted(async () => {
   masterProducts.value = await getMasterProducts()
 })
 function formatDate(dt) {
-  return new Date(dt).toLocaleString()
+  return new Date(dt.replace(' ', 'T')).toLocaleString()
 }
 </script>
 
