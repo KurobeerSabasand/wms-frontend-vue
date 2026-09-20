@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-import { addMasterProduct } from '@/services/api'
 import { ref } from 'vue'
 import { addMasterProduct } from '../services/api.js'
 

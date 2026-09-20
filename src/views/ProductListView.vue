@@ -30,7 +30,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getProducts, deleteLot } from '../services/api.js'
+import { getProducts, deleteLot as apiDeleteLot } from '../services/api.js'
 
 const products = ref([])
 
@@ -43,7 +43,7 @@ function formatDate(dt) {
 }
 
 async function deleteLot(lot) {
-  const result = await deleteLot(lot.product_code, lot.stocked_at)
+  const result = await apiDeleteLot(lot.product_code, lot.stocked_at)
   alert(result.message)
   products.value = await getProducts()
 }
